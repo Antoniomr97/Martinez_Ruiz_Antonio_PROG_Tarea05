@@ -5,20 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c9233fc-ccbe-43ee-b28f-c101fae79fb5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/dominio/Libro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/dominio/Libro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Libros.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Libros.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Usuarios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/biblioteca/utilidades/Entrada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/utilidades/Entrada.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/biblioteca/controlador/Controlador.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/biblioteca/modelo/Modelo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/biblioteca/vista/Opcion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/biblioteca/vista/Vista.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/AppBiblioteca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/AppBiblioteca.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/biblioteca/vista/Consola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/vista/Consola.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
