@@ -2,12 +2,12 @@ package biblioteca.vista;
 
 import biblioteca.modelo.dominio.*;
 import biblioteca.modelo.negocio.*;
+import biblioteca.utilidades.Entrada;
 
 import java.time.LocalDate;
-import java.util.Scanner;
+
 
 public class Consola {
-    private Scanner input = new Scanner(System.in);
 
     private Libros libros;
     private Usuarios usuarios;
@@ -34,7 +34,7 @@ public class Consola {
             System.out.println("9. Ver historial de préstamos");
             System.out.println("10. Salir");
             System.out.print("Opción: ");
-            String opcion = input.nextLine();
+            String opcion = Entrada.cadena();
 
             switch (opcion) {
                 case "1": altaLibro(); break;
@@ -61,7 +61,7 @@ public class Consola {
         String titulo = "";
         while (titulo == null || titulo.trim().isEmpty()) {
             System.out.print("Título del libro: ");
-            titulo = input.nextLine();
+            titulo = Entrada.cadena();
             if (titulo == null || titulo.trim().isEmpty()) {
                 System.out.println("Error: el título no puede estar vacío.\n");
             }
@@ -70,7 +70,7 @@ public class Consola {
         String isbn = "";
         while (true) {
             System.out.print("ISBN (13 dígitos): ");
-            isbn = input.nextLine();
+            isbn = Entrada.cadena();
             if (isbn != null && isbn.matches(Libro.ISBN_PATTERN)) break;
             System.out.println("ISBN inválido. Debe tener 13 dígitos.\n");
         }
@@ -78,7 +78,7 @@ public class Consola {
         int anio = 0;
         while (anio <= 0) {
             System.out.print("Año de publicación: ");
-            String entrada = input.nextLine();
+            String entrada = Entrada.cadena();
             if (entrada == null || entrada.trim().isEmpty()) {
                 System.out.println("Error: el año no puede estar vacío");
                 continue;
@@ -100,7 +100,7 @@ public class Consola {
                 System.out.println((i + 1) + ". " + categorias[i]);
             }
             System.out.print("Opción (1-" + categorias.length + "): ");
-            String entrada = input.nextLine();
+            String entrada = Entrada.cadena();
             try {
                 int opcion = Integer.parseInt(entrada.trim());
                 if (opcion >= 1 && opcion <= categorias.length) {
@@ -117,7 +117,7 @@ public class Consola {
         int unidades = -1;
         while (unidades < 1) {
             System.out.print("Unidades disponibles: ");
-            String entrada = input.nextLine();
+            String entrada = Entrada.cadena();
             if (entrada == null || entrada.trim().isEmpty()) {
                 System.out.println("Error: unidades no puede estar vacío");
                 continue;
@@ -137,7 +137,7 @@ public class Consola {
         int numAutores = 0;
         while (numAutores <= 0 || numAutores > Libro.MAX_AUTORES) {
             System.out.print("¿Cuántos autores tiene el libro? (1-" + Libro.MAX_AUTORES + "): ");
-            String entrada = input.nextLine();
+            String entrada = Entrada.cadena();
             try {
                 numAutores = Integer.parseInt(entrada.trim());
                 if (numAutores <= 0 || numAutores > Libro.MAX_AUTORES)
@@ -153,21 +153,21 @@ public class Consola {
             String nombre = "";
             while (nombre == null || nombre.trim().isEmpty()) {
                 System.out.print("Nombre: ");
-                nombre = input.nextLine();
+                nombre = Entrada.cadena();
                 if (nombre == null || nombre.trim().isEmpty()) System.out.println("Error: el nombre no puede estar vacío");
             }
 
             String apellidos = "";
             while (apellidos == null || apellidos.trim().isEmpty()) {
                 System.out.print("Apellidos: ");
-                apellidos = input.nextLine();
+                apellidos = Entrada.cadena();
                 if (apellidos == null || apellidos.trim().isEmpty()) System.out.println("Error: los apellidos no pueden estar vacíos");
             }
 
             String nacionalidad = "";
             while (nacionalidad == null || nacionalidad.trim().isEmpty()) {
                 System.out.print("Nacionalidad: ");
-                nacionalidad = input.nextLine();
+                nacionalidad = Entrada.cadena();
                 if (nacionalidad == null || nacionalidad.trim().isEmpty()) System.out.println("Error: la nacionalidad no puede estar vacía");
             }
 
@@ -190,7 +190,7 @@ public class Consola {
         String isbn = "";
         while (isbn == null || isbn.trim().isEmpty()) {
             System.out.print("ISBN del libro a dar de baja: ");
-            isbn = input.nextLine();
+            isbn = Entrada.cadena();
             if (isbn == null || isbn.trim().isEmpty()) System.out.println("Error: ISBN no puede estar vacío");
         }
 
@@ -229,7 +229,7 @@ public class Consola {
         String id = "";
         while (true) {
             System.out.print("ID Usuario (ej: AB123): ");
-            id = input.nextLine();
+            id = Entrada.cadena();
             if (id != null && id.matches(Usuario.ID_PATTERN)) break;
             System.out.println("ID inválido.\n");
         }
@@ -237,7 +237,7 @@ public class Consola {
         String nombre = "";
         while (nombre == null || nombre.trim().isEmpty()) {
             System.out.print("Nombre: ");
-            nombre = input.nextLine();
+            nombre = Entrada.cadena();
             if (nombre == null || nombre.trim().isEmpty()) {
                 System.out.println("Error: el nombre no puede estar vacío");
             }
@@ -246,7 +246,7 @@ public class Consola {
         String email = "";
         while (true) {
             System.out.print("Email: ");
-            email = input.nextLine();
+            email = Entrada.cadena();
             if (email != null && email.matches(Usuario.EMAIL_BASIC)) break;
             System.out.println("Email inválido.\n");
         }
@@ -254,21 +254,21 @@ public class Consola {
         String via = "";
         while (via == null || via.trim().isEmpty()) {
             System.out.print("Vía: ");
-            via = input.nextLine();
+            via = Entrada.cadena();
             if (via == null || via.trim().isEmpty()) System.out.println("Error: la vía no puede estar vacía");
         }
 
         String numero = "";
         while (numero == null || numero.trim().isEmpty()) {
             System.out.print("Número: ");
-            numero = input.nextLine();
+            numero = Entrada.cadena();
             if (numero == null || numero.trim().isEmpty()) System.out.println("Error: el número no puede estar vacío");
         }
 
         String cp = "";
         while (true) {
             System.out.print("Código Postal: ");
-            cp = input.nextLine();
+            cp = Entrada.cadena();
             if (cp != null && cp.matches(Direccion.CP_PATTERN)) break;
             System.out.println("CP inválido.\n");
         }
@@ -276,7 +276,7 @@ public class Consola {
         String localidad = "";
         while (localidad == null || localidad.trim().isEmpty()) {
             System.out.print("Localidad: ");
-            localidad = input.nextLine();
+            localidad = Entrada.cadena();
             if (localidad == null || localidad.trim().isEmpty()) System.out.println("Error: la localidad no puede estar vacía");
         }
 
@@ -312,14 +312,14 @@ public class Consola {
         String isbn = "";
         while (isbn == null || isbn.trim().isEmpty()) {
             System.out.print("ISBN del libro: ");
-            isbn = input.nextLine();
+            isbn = Entrada.cadena();
             if (isbn == null || isbn.trim().isEmpty()) System.out.println("Error: ISBN no puede estar vacío");
         }
 
         String id = "";
         while (id == null || id.trim().isEmpty()) {
             System.out.print("ID del usuario: ");
-            id = input.nextLine();
+            id = Entrada.cadena();
             if (id == null || id.trim().isEmpty()) System.out.println("Error: ID de usuario no puede estar vacío");
         }
 
@@ -345,14 +345,14 @@ public class Consola {
         String isbn = "";
         while (isbn == null || isbn.trim().isEmpty()) {
             System.out.print("ISBN del libro: ");
-            isbn = input.nextLine();
+            isbn = Entrada.cadena();
             if (isbn == null || isbn.trim().isEmpty()) System.out.println("Error: ISBN no puede estar vacío");
         }
 
         String id = "";
         while (id == null || id.trim().isEmpty()) {
             System.out.print("ID del usuario: ");
-            id = input.nextLine();
+            id = Entrada.cadena();
             if (id == null || id.trim().isEmpty()) System.out.println("Error: ID de usuario no puede estar vacío");
         }
 
@@ -378,7 +378,7 @@ public class Consola {
         String id = "";
         while (id == null || id.trim().isEmpty()) {
             System.out.print("ID del usuario: ");
-            id = input.nextLine();
+            id = Entrada.cadena();
             if (id == null || id.trim().isEmpty()) System.out.println("Error: ID de usuario no puede estar vacío");
         }
 

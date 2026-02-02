@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.utilidades;
+package biblioteca.utilidades;
 
 import java.io.BufferedReader;
 import java.io.IOException;

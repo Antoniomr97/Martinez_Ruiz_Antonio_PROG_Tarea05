@@ -23,14 +23,18 @@ public class Libros {
     }
 
     // Quitamos un libro del array
-    public Boolean bajaLibro(Libro libro){
+    public Boolean bajaLibro(Libro libro) {
         for (int i = 0; i < libros.length; i++) {
             if (libros[i] != null && libros[i].equals(libro)) {
-                libros[i] = null; // Eliminamos el libro
+                // Desplazamos todos los elementos posteriores hacia la izquierda
+                for (int j = i; j < libros.length - 1; j++) {
+                    libros[j] = libros[j + 1];
+                }// Este for lo que hace es reemplazar cada libro por el siguiente a partir del que coincide
+                libros[libros.length - 1] = null; // último hueco queda vacío
                 return true;
             }
         }
-        return false; // Si no se encontró
+        return false; // No encontrado
     }
 
     // Muestra todos los libros

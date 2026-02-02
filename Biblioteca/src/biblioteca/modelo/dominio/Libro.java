@@ -1,12 +1,9 @@
 package biblioteca.modelo.dominio;
 
-import java.util.ArrayList;
-
 // Inicializamos la clase
 public class Libro {
 
     // Definimos las variables constantes como la expresion regular a usar para obtener el ISBN y el Max de autores que puede tener un libro.
-
     /*
     ^ indica que empieza por el principio de la cadena
     \\d indica que es un numero real
@@ -21,7 +18,8 @@ public class Libro {
     private int anio;
     private Categoria categoria;
     private int unidadesDisponibles;
-    private ArrayList<Autor> autores = new ArrayList<>();
+    private Autor[] autores; // Array fijo de autores
+    private int numAutores;  // Para llevar el control de cuántos autores hay realmente
 
     // Creamos un constructor con sus valores
     public Libro(String isbn, String titulo, int anio, Categoria categoria, int unidadesDisponibles) {
@@ -33,27 +31,46 @@ public class Libro {
         this.anio = anio;
         this.categoria = categoria;
         this.unidadesDisponibles = unidadesDisponibles;
+
+        // Inicializamos el array de autores y el contador
+        this.autores = new Autor[MAX_AUTORES];
+        this.numAutores = 0;
     }
 
     // Creamos un constructor desde un objeto y añadimos los autores
     public Libro(Libro libro) {
         this(libro.isbn, libro.titulo, libro.anio, libro.categoria, libro.unidadesDisponibles);
-        this.autores = new ArrayList<>(libro.autores);
+
+        // Recorremos los autores del libro original y los añadimos al array
+        for (Autor a : libro.getAutores()) {
+            if (a != null) addAutor(a);
+        }
     }
 
     // Creamos un metodo, que comprueba si esta lleno el array de autores y entonces añade el autor que recibe
     public void addAutor(Autor autor) {
-        if (autores.size() < MAX_AUTORES) autores.add(autor);
+        if (numAutores < MAX_AUTORES) {
+            autores[numAutores] = autor; // Añadimos al siguiente hueco disponible
+            numAutores++; // Incrementamos contador de autores
+        }
     }
 
     // Obtener el Autor por su posicion en el array
-    public Autor[] getAutores() { return autores.toArray(new Autor[0]); }
+    public Autor[] getAutores() {
+        Autor[] resultado = new Autor[numAutores];
+        for (int i = 0; i < numAutores; i++) {
+            resultado[i] = autores[i]; // Copiamos los autores existentes
+        }
+        return resultado;
+    }
 
     // Con el metodo for juntar en sb como String todos los autores separados por una , y un espacio
     public String autoresComoCadena() {
         StringBuilder sb = new StringBuilder();
-        for (Autor a : autores) sb.append(a.toString()).append(", ");
-        if (sb.length() > 0) sb.setLength(sb.length()-2);
+        for (int i = 0; i < numAutores; i++) {
+            sb.append(autores[i].toString()); // Añadimos el autor
+            if (i < numAutores - 1) sb.append(", "); // Añadimos coma entre autores
+        }
         return sb.toString();
     }
 
