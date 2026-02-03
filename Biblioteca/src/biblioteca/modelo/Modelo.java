@@ -1,87 +1,86 @@
 package biblioteca.modelo;
 
-import biblioteca.modelo.negocio.Libros;
-import biblioteca.modelo.negocio.Usuarios;
-import biblioteca.modelo.negocio.Prestamos;
-import biblioteca.modelo.dominio.Libro;
-import biblioteca.modelo.dominio.Usuario;
-import biblioteca.modelo.dominio.Prestamo;
-
+import biblioteca.modelo.negocio.*;
+import biblioteca.modelo.dominio.*;
 import java.time.LocalDate;
 
-// Clase Modelo centraliza la gestión de libros, usuarios y préstamos
+/**
+ * Esta es nuestra clase Fachada.
+ * Su función es centralizar todas las peticiones que vienen del Controlador
+ * y repartirlas a las clases de negocio (Libros, Usuarios, Prestamos).
+ */
 public class Modelo {
+    // Capacidad máxima para las colecciones de libros, usuarios y préstamos
     private final int CAPACIDAD;
+
+    // Instancias de nuestras clases de negocio
     private Libros libros;
     private Usuarios usuarios;
     private Prestamos prestamos;
 
-    // Constructor: inicializa los objetos de negocio con la capacidad indicada
+    // Constructor del modelo: recibe la capacidad máxima que queremos
     public Modelo(int capacidad) {
         this.CAPACIDAD = capacidad;
-        this.libros = new Libros(capacidad);
-        this.usuarios = new Usuarios(capacidad);
-        this.prestamos = new Prestamos(capacidad);
     }
 
-    /* --------------------- LIBROS --------------------- */
-
-    public void alta(Libro libro) {
-        libros.alta(libro);
+    /**
+     * Aquí es donde inicializamos nuestras clases de negocio
+     * con la capacidad que hemos definido.
+     * Esto se llama al arrancar la aplicación desde el Controlador.
+     */
+    public void comenzar() {
+        this.libros = new Libros(CAPACIDAD);       // Creamos la "gestión de libros"
+        this.usuarios = new Usuarios(CAPACIDAD);   // Creamos la "gestión de usuarios"
+        this.prestamos = new Prestamos(CAPACIDAD); // Creamos la "gestión de préstamos"
+        System.out.println("Modelo: Hemos inicializado todas las clases de negocio correctamente.");
     }
 
-    public boolean baja(Libro libro) {
-        return libros.bajaLibro(libro);
+    /**
+     * Mensaje de despedida cuando cerramos la aplicación.
+     */
+    public void terminar() {
+        System.out.println("El modelo ha terminado.");
     }
 
-    public Libro buscar(Libro libro) {
-        for (Libro l : libros.todos()) {
-            if (l.equals(libro)) return l;
-        }
-        return null;
+    // --- OPERACIONES CON LIBROS ---
+    // Estos métodos llaman a la clase Libros para realizar las operaciones
+
+    public void alta(Libro l) { libros.alta(l); }           // Añadir un libro
+    public Libro buscar(Libro l) { return libros.buscar(l); } // Buscar un libro
+    public boolean baja(Libro l) { return libros.bajaLibro(l); } // Eliminar un libro
+    public Libro[] listadoLibros() { return libros.todos(); }     // Listar todos los libros
+
+    // --- OPERACIONES CON USUARIOS ---
+    // Estos métodos llaman a la clase Usuarios
+
+    public void alta(Usuario u) { usuarios.alta(u); }         // Añadir un usuario
+    public Usuario buscar(Usuario u) { return usuarios.buscar(u); } // Buscar un usuario
+    public boolean baja(Usuario u) { return usuarios.baja(u); }     // Eliminar un usuario
+    public Usuario[] listadoUsuarios() { return usuarios.todos(); } // Listar todos los usuarios
+
+    // --- OPERACIONES CON PRÉSTAMOS ---
+    // Aquí llamamos a la clase Prestamos
+
+    public void prestar(Libro l, Usuario u, LocalDate f) {
+        // Registramos un nuevo préstamo
+        prestamos.prestar(l, u, f);
     }
 
-    public Libro[] listadoLibros() {
-        return libros.todos();
-    }
-
-    /* --------------------- USUARIOS --------------------- */
-
-    public void alta(Usuario usuario) {
-        usuarios.alta(usuario);
-    }
-
-    public boolean baja(Usuario usuario) {
-        return usuarios.baja(usuario);
-    }
-
-    public Usuario buscar(Usuario usuario) {
-        return usuarios.buscar(usuario);
-    }
-
-    public Usuario[] listadoUsuarios() {
-        return usuarios.todos();
-    }
-
-    /* --------------------- PRÉSTAMOS --------------------- */
-
-    public void prestar(Libro libro, Usuario usuario, LocalDate fecha) {
-        prestamos.prestar(libro, usuario, fecha);
-    }
-
-    public boolean devolver(Libro libro, Usuario usuario, LocalDate fecha) {
-        return prestamos.devolver(libro, usuario, fecha);
+    public boolean devolver(Libro l, Usuario u, LocalDate f) {
+        // Registramos la devolución de un libro
+        return prestamos.devolver(l, u, f);
     }
 
     public Prestamo[] listadoPrestamos() {
+        // Devuelve todos los préstamos históricos
         return prestamos.historico();
     }
 
-    public Prestamo[] listadoPrestamos(Usuario usuario) {
-        return prestamos.prestamosUsuario(usuario);
-    }
-
-    public Libro[] librosPrestados() {
-        return prestamos.librosPrestados();
+    /**
+     * Metodo adicional para obtener los préstamos de un usuario concreto,
+     * útil para la Vista cuando queremos filtrar por usuario.
+     */
+    public Prestamo[] listadoPrestamos(Usuario u) {
+        return prestamos.prestamosUsuario(u);
     }
 }

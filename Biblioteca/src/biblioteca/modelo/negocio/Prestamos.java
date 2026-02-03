@@ -3,92 +3,64 @@ package biblioteca.modelo.negocio;
 import biblioteca.modelo.dominio.Libro;
 import biblioteca.modelo.dominio.Prestamo;
 import biblioteca.modelo.dominio.Usuario;
-
 import java.time.LocalDate;
 
 public class Prestamos {
     private Prestamo[] prestamos;
 
     public Prestamos(int capacidad){
-        prestamos = new Prestamo[capacidad];
+        this.prestamos = new Prestamo[capacidad];
     }
 
-    // Registrar un nuevo préstamo
     public void prestar(Libro libro, Usuario usuario, LocalDate fecha){
         for (int i = 0; i < prestamos.length; i++) {
             if (prestamos[i] == null) {
+                // Creamos el préstamo y restamos stock del libro
                 prestamos[i] = new Prestamo(libro, usuario, fecha);
-                libro.tomarPrestado(); // restamos unidades disponibles
+                libro.tomarPrestado();
                 return;
             }
         }
-        System.out.println("No se pueden registrar más préstamos.");
+        System.out.println("Error: Capacidad de préstamos agotada.");
     }
 
-    // Marcamos un préstamo como devuelto
     public boolean devolver(Libro libro, Usuario usuario, LocalDate fecha){
         for (Prestamo p : prestamos) {
             if (p != null && !p.isDevuelto()
                     && p.getLibro().equals(libro)
                     && p.getUsuario().equals(usuario)) {
-                p.marcarDevuelto(fecha); // Ya aumenta la unidad
+                p.marcarDevuelto(fecha);
                 return true;
             }
         }
         return false;
     }
 
-    // Devuelve todos los préstamos que tiene el usuario actualmente
+    // Cambiamos el nombre o añadimos este alias para que el Controlador no de error
     public Prestamo[] prestamosUsuario(Usuario usuario){
         int count = 0;
         for (Prestamo p : prestamos) {
-            if (p != null && !p.isDevuelto() && p.getUsuario().equals(usuario)) count++;
+            if (p != null && p.getUsuario().equals(usuario)) count++;
         }
 
         Prestamo[] resultado = new Prestamo[count];
         int index = 0;
         for (Prestamo p : prestamos) {
-            if (p != null && !p.isDevuelto() && p.getUsuario().equals(usuario)) {
-                resultado[index] = p;
-                index++;
+            if (p != null && p.getUsuario().equals(usuario)) {
+                resultado[index++] = p;
             }
         }
         return resultado;
     }
-
-    // Devuelve todos los libros que están actualmente prestados
-    public Libro[] librosPrestados(){
-        int count = 0;
-        for (Prestamo p : prestamos) {
-            if (p != null && !p.isDevuelto()) count++;
-        }
-
-        Libro[] resultado = new Libro[count];
-        int index = 0;
-        for (Prestamo p : prestamos) {
-            if (p != null && !p.isDevuelto()) {
-                resultado[index] = p.getLibro();
-                index++;
-            }
-        }
-        return resultado;
-    }
-
-    // Devuelve el historico de los prestamos
 
     public Prestamo[] historico(){
         int count = 0;
-        for (Prestamo p : prestamos) {
-            if (p != null) count++;
-        }
+        for (Prestamo p : prestamos) if (p != null) count++;
 
         Prestamo[] resultado = new Prestamo[count];
         int index = 0;
         for (Prestamo p : prestamos) {
-            if (p != null) {
-                resultado[index] = p;
-                index++;
-            }
+            if (p != null) resultado[index++] = p;
         }
         return resultado;
     }

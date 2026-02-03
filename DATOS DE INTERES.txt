@@ -1,0 +1,10 @@
+GITHUB : https://github.com/Antoniomr97/Martinez_Ruiz_Antonio_PROG_Tarea05
+
+Esta tarea ha sido todo un reto, comprender el ciclo de un modelo vista controlador
+se me ha atragantado un poco. Considero que con la práctica se irá haciendo más fácil
+He comentado el código lo máximo posible para que sea explicativo y para que después me sirva a mi de repaso.
+Un problema que tuve fue que perdí muchos métodos al aplicar la nueva lógica y volver a implementarlos me ha sido problemático. Al comprender que la vista y la consola van de la mano y unos cambios he conseguido algo bastante solido.
+
+No se que más poner ya que todo ha sido un reto.
+
+Un saludo pase un gran día Fernando.
