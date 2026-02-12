@@ -7,10 +7,12 @@ import biblioteca.vista.Vista;
 public class AppBiblioteca {
     public static void main(String[] args) {
         // Configuramos nuestro sistema siguiendo el patrón MVC
-        Modelo modelo = new Modelo(100);
+        // Ya no necesitamos pasar capacidad porque usamos ArrayLists
+        Modelo modelo = new Modelo();
         Vista vista = new Vista();
         Controlador controlador = new Controlador(modelo, vista);
 
+        // Le decimos a la vista qué controlador usar
         vista.setControlador(controlador);
 
         // Iniciamos la ejecución desde el controlador

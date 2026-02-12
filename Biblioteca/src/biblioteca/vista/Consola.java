@@ -70,21 +70,23 @@ public class Consola {
 
         Libro libro = new Libro(isbn, titulo, anio, cat, uni);
 
-        // Gestión de autores (mínimo 1, máximo 3)
-        int numAutores;
-        do {
-            System.out.print("¿Cuántos autores tiene? (1-3): ");
-            numAutores = Entrada.entero();
-        } while (numAutores < 1 || numAutores > Libro.MAX_AUTORES);
-
-        // Pedimos los datos de cada autor
-        for (int i = 0; i < numAutores; i++) {
-            System.out.println("Autor " + (i + 1) + ":");
+        // Pedimos autores uno a uno
+        boolean seguir = true;
+        int i = 1;
+        while (seguir) {
+            System.out.println("Autor " + i + ":");
             libro.addAutor(nuevoAutor());
+            i++;
+            System.out.print("¿Desea añadir otro autor? (s/n): ");
+            String respuesta = Entrada.cadena().toLowerCase();
+            if (!respuesta.equals("s")) {
+                seguir = false;
+            }
         }
 
         return libro;
     }
+
 
     // Método auxiliar para crear un autor
     private static Autor nuevoAutor() {

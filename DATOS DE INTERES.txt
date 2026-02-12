@@ -1,2 +1,7 @@
 GITHUB : https://github.com/Antoniomr97/Martinez_Ruiz_Antonio_PROG_Tarea07
 
+En ese GitHub tienes la tarea 7 con los nuevos cambios y en el log tienes la tarea 5
+Ya que he decidido reutilizarlo para no llenar todo de repositorios.
+
+Esta tarea me ha parecido una buena practica para aplicar el ArrayList, mi gran problema me lo generé yo solo que fue que intente mantener la capacidad con el ArrayList creando verificadores de size y comparando con la capacidad y máxima y cuando llegué al apartado de quitar la capacidad tuve que rehacer lo que acababa de hacer.
+Para la fase de ordenación ha sido todo un trabajo de investigación para descubrir como realizarlo, creo que está bien y dejaré todo lo mejor comentado en el código.

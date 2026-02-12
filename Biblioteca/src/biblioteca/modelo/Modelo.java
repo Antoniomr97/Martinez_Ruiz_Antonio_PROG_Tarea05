@@ -8,30 +8,32 @@ import java.time.LocalDate;
  * Esta es nuestra clase Fachada.
  * Su función es centralizar todas las peticiones que vienen del Controlador
  * y repartirlas a las clases de negocio (Libros, Usuarios, Prestamos).
+ *
+ * Ya no tenemos límite de capacidad, porque usamos ArrayLists en lugar de arrays.
  */
 public class Modelo {
-    // Capacidad máxima para las colecciones de libros, usuarios y préstamos
-    private final int CAPACIDAD;
 
     // Instancias de nuestras clases de negocio
     private Libros libros;
     private Usuarios usuarios;
     private Prestamos prestamos;
 
-    // Constructor del modelo: recibe la capacidad máxima que queremos
-    public Modelo(int capacidad) {
-        this.CAPACIDAD = capacidad;
+    /**
+     * Constructor del modelo.
+     * Ya no necesita recibir capacidad porque usamos ArrayLists.
+     */
+    public Modelo() {
+        // Nada que inicializar aquí por ahora
     }
 
     /**
-     * Aquí es donde inicializamos nuestras clases de negocio
-     * con la capacidad que hemos definido.
+     * Aquí es donde inicializamos nuestras clases de negocio.
      * Esto se llama al arrancar la aplicación desde el Controlador.
      */
     public void comenzar() {
-        this.libros = new Libros(CAPACIDAD);       // Creamos la "gestión de libros"
-        this.usuarios = new Usuarios(CAPACIDAD);   // Creamos la "gestión de usuarios"
-        this.prestamos = new Prestamos(CAPACIDAD); // Creamos la "gestión de préstamos"
+        this.libros = new Libros();       // Creamos la "gestión de libros"
+        this.usuarios = new Usuarios();   // Creamos la "gestión de usuarios"
+        this.prestamos = new Prestamos(); // Creamos la "gestión de préstamos"
         System.out.println("Modelo: Hemos inicializado todas las clases de negocio correctamente.");
     }
 
@@ -45,15 +47,15 @@ public class Modelo {
     // --- OPERACIONES CON LIBROS ---
     // Estos métodos llaman a la clase Libros para realizar las operaciones
 
-    public void alta(Libro l) { libros.alta(l); }           // Añadir un libro
-    public Libro buscar(Libro l) { return libros.buscar(l); } // Buscar un libro
+    public void alta(Libro l) { libros.alta(l); }              // Añadir un libro
+    public Libro buscar(Libro l) { return libros.buscar(l); }  // Buscar un libro
     public boolean baja(Libro l) { return libros.bajaLibro(l); } // Eliminar un libro
-    public Libro[] listadoLibros() { return libros.todos(); }     // Listar todos los libros
+    public Libro[] listadoLibros() { return libros.todos(); }  // Listar todos los libros
 
     // --- OPERACIONES CON USUARIOS ---
     // Estos métodos llaman a la clase Usuarios
 
-    public void alta(Usuario u) { usuarios.alta(u); }         // Añadir un usuario
+    public void alta(Usuario u) { usuarios.alta(u); }          // Añadir un usuario
     public Usuario buscar(Usuario u) { return usuarios.buscar(u); } // Buscar un usuario
     public boolean baja(Usuario u) { return usuarios.baja(u); }     // Eliminar un usuario
     public Usuario[] listadoUsuarios() { return usuarios.todos(); } // Listar todos los usuarios

@@ -71,3 +71,8 @@ public class Controlador {
         return modelo.listadoPrestamos(u);
     }
 }
+
+/**
+ * En esté script no hace falta cambiar nada ya que trabaja todo con metodos
+ * y con lo que le pasa el Modelo, no trata directamente los Arrays o ArrayList
+ * */

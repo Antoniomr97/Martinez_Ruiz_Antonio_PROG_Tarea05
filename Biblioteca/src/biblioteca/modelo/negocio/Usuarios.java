@@ -1,53 +1,51 @@
 package biblioteca.modelo.negocio;
 
 import biblioteca.modelo.dominio.Usuario;
+import java.util.ArrayList;
 
+// Clase que gestiona todos los usuarios de la biblioteca
 public class Usuarios {
-    private Usuario[] usuarios;
+    // Lista dinámica de usuarios
+    private ArrayList<Usuario> usuarios;
 
-    public Usuarios(int capacidad) {
-        this.usuarios = new Usuario[capacidad];
+    // Constructor: inicializa la lista de usuarios
+    public Usuarios() {
+        this.usuarios = new ArrayList<>();
     }
 
+    // Metodo para añadir un nuevo usuario
     public void alta(Usuario usuario) {
-        for (int i = 0; i < usuarios.length; i++) {
-            if (usuarios[i] == null) {
-                usuarios[i] = usuario;
-                return;
-            }
+        // Comprobamos que no sea null
+        if (usuario == null) {
+            System.out.println("No puede registrar usuarios vacíos.");
+            return;
         }
-        System.out.println("Error: Límite de usuarios alcanzado.");
+
+        // Comprobamos duplicados
+        if (buscar(usuario) != null) {
+            System.out.println("El usuario ya está registrado.");
+            return;
+        }
+
+        // Añadimos el usuario a la lista
+        usuarios.add(usuario);
     }
 
+    // Metodo para eliminar un usuario
     public boolean baja(Usuario usuario) {
-        for (int i = 0; i < usuarios.length; i++) {
-            if (usuarios[i] != null && usuarios[i].equals(usuario)) {
-                // Desplazamos el resto de usuarios
-                for (int j = i; j < usuarios.length - 1; j++) {
-                    usuarios[j] = usuarios[j + 1];
-                }
-                usuarios[usuarios.length - 1] = null;
-                return true;
-            }
-        }
-        return false;
+        return usuarios.remove(usuario);
     }
 
+    // Metodo para buscar un usuario concreto
     public Usuario buscar(Usuario usuario) {
         for (Usuario u : usuarios) {
-            if (u != null && u.equals(usuario)) return u;
+            if (u.equals(usuario)) return u;
         }
         return null;
     }
 
+    // Devuelve todos los usuarios registrados
     public Usuario[] todos() {
-        int count = 0;
-        for (Usuario u : usuarios) if (u != null) count++;
-        Usuario[] resultado = new Usuario[count];
-        int index = 0;
-        for (Usuario u : usuarios) {
-            if (u != null) resultado[index++] = u;
-        }
-        return resultado;
+        return usuarios.toArray(new Usuario[0]);
     }
 }

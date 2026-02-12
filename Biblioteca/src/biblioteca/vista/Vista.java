@@ -3,10 +3,13 @@ package biblioteca.vista;
 import biblioteca.controlador.Controlador;
 import biblioteca.modelo.dominio.*;
 import biblioteca.utilidades.Entrada;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 // La Vista es la capa que interactúa con el usuario
-// Llama al Consola para leer datos y al Controlador para manipular los datos
+// Llama a Consola para leer datos y al Controlador para manipular los datos
 public class Vista {
+
     private Controlador controlador; // Guardamos la referencia al controlador
 
     // Setter para asignar el controlador
@@ -16,19 +19,23 @@ public class Vista {
 
     // --- METODO PRINCIPAL ---
     public void comenzar() {
-        int ord; // opción elegida por el usuario
+        int opcionElegida;
         do {
-            Consola.mostrarMenu();   // Mostramos el menú
-            ord = Entrada.entero();  // Leemos la opción
-            if (ord >= 0 && ord < Opcion.values().length) {
-                ejecutarOpcion(Opcion.values()[ord]); // Ejecutamos la opción elegida
+            Consola.mostrarMenu();   // Mostramos el menú por consola
+            opcionElegida = Entrada.entero();  // Leemos la opción que el usuario ha elegido
+
+            // Comprobamos que la opción elegida sea válida
+            if (opcionElegida >= 0 && opcionElegida < Opcion.values().length) {
+                // Convertimos el número elegido a la constante del enum Opcion
+                ejecutarOpcion(Opcion.values()[opcionElegida]);
             } else {
                 System.out.println("Opción no válida.");
             }
-        } while (ord != Opcion.SALIR.ordinal()); // Repetimos hasta que el usuario elija salir
+        } while (opcionElegida != Opcion.SALIR.ordinal());
+        // Repetimos hasta que el usuario elija salir (SALIR es una constante del enum)
     }
 
-    // Llama al metodo correspondiente según la opción elegida
+    // Ejecuta la opción seleccionada en el menú
     private void ejecutarOpcion(Opcion opcion) {
         try {
             switch (opcion) {
@@ -56,88 +63,128 @@ public class Vista {
         controlador.terminar(); // Llama al cierre en cascada del Controlador y Modelo
     }
 
-    // ------------------ MÉTODOS ------------------
+    // ------------------ MÉTODOS DE USUARIOS ------------------
 
     // Insertar un usuario
     private void insertarUsuario() {
-        Usuario nuevo = Consola.nuevoUsuario(false); // Pedimos datos completos
+        Usuario nuevoUsuario = Consola.nuevoUsuario(false); // Pedimos los datos completos al usuario
 
-        // Comprobamos si ya existe por ID
-        if (controlador.buscar(nuevo) != null) {
-            System.out.println("Error: Ya existe un usuario con la ID " + nuevo.getId());
+        // Comprobamos si ya existe un usuario con la misma ID
+        if (controlador.buscar(nuevoUsuario) != null) {
+            System.out.println("Error: Ya existe un usuario con la ID " + nuevoUsuario.getId());
         } else {
-            controlador.alta(nuevo); // Lo damos de alta
+            controlador.alta(nuevoUsuario); // Damos de alta al nuevo usuario
             System.out.println("Usuario registrado con éxito.");
         }
     }
 
     // Borrar un usuario
     private void borrarUsuario() {
-        Usuario busqueda = Consola.nuevoUsuario(true); // Creamos un objeto mínimo solo con ID
-        if (controlador.baja(busqueda)) System.out.println("Usuario borrado.");
-        else System.out.println("No se encontró el usuario.");
+        Usuario usuarioBusqueda = Consola.nuevoUsuario(true); // Creamos un objeto mínimo solo con ID
+        if (controlador.baja(usuarioBusqueda))
+            System.out.println("Usuario borrado.");
+        else
+            System.out.println("No se encontró el usuario.");
     }
 
-    // Mostrar todos los usuarios
+    // Mostrar usuarios ordenados alfabéticamente por nombre
     private void mostrarUsuarios() {
-        Usuario[] lista = controlador.listadoUsuarios();
-        if (lista.length == 0) System.out.println("No hay usuarios.");
-        else for (Usuario u : lista) System.out.println(u);
+        // Convertimos el array que devuelve el controlador en un ArrayList
+        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+        for (Usuario u : controlador.listadoUsuarios()) {
+            listaUsuarios.add(u);
+        }
+
+        if (listaUsuarios.isEmpty()) {
+            System.out.println("No hay usuarios.");
+            return;
+        }
+
+        // Ordenamos alfabéticamente por nombre, ignorando mayúsculas/minúsculas
+        listaUsuarios.sort(Comparator.comparing(Usuario::getNombre, String.CASE_INSENSITIVE_ORDER));
+
+        // Mostramos cada usuario
+        for (Usuario usuario : listaUsuarios) {
+            System.out.println(usuario);
+        }
     }
+
+    // ------------------ MÉTODOS DE LIBROS ------------------
 
     // Insertar un libro
     private void insertarLibro() {
-        Libro nuevo = Consola.nuevoLibro(false); // Pedimos todos los datos
+        Libro nuevoLibro = Consola.nuevoLibro(false); // Pedimos todos los datos del libro
 
         // Comprobamos si ya existe el ISBN
-        if (controlador.buscar(nuevo) != null) {
-            System.out.println("Error: No se puede insertar. El ISBN " + nuevo.getIsbn() + " ya existe.");
+        if (controlador.buscar(nuevoLibro) != null) {
+            System.out.println("Error: No se puede insertar. El ISBN " + nuevoLibro.getIsbn() + " ya existe.");
         } else {
-            controlador.alta(nuevo); // Lo damos de alta
+            controlador.alta(nuevoLibro); // Damos de alta el libro
             System.out.println("Libro registrado con éxito.");
         }
     }
 
     // Borrar un libro
     private void borrarLibro() {
-        Libro busq = Consola.nuevoLibro(true); // Objeto mínimo con ISBN
-        if (controlador.baja(busq)) System.out.println("Libro eliminado.");
-        else System.out.println("Libro no encontrado.");
+        Libro libroBusqueda = Consola.nuevoLibro(true); // Creamos un objeto mínimo con ISBN
+        if (controlador.baja(libroBusqueda))
+            System.out.println("Libro eliminado.");
+        else
+            System.out.println("Libro no encontrado.");
     }
 
-    // Mostrar todos los libros
+    // Mostrar libros ordenados alfabéticamente por título
     private void mostrarLibros() {
-        Libro[] lista = controlador.listadoLibros();
-        if (lista.length == 0) System.out.println("No hay libros.");
-        else for (Libro l : lista) System.out.println(l);
+        ArrayList<Libro> listaLibros = new ArrayList<>();
+        for (Libro l : controlador.listadoLibros()) {
+            listaLibros.add(l);
+        }
+
+        if (listaLibros.isEmpty()) {
+            System.out.println("No hay libros.");
+            return;
+        }
+
+        // Ordenamos alfabéticamente por título, ignorando mayúsculas/minúsculas
+        listaLibros.sort(Comparator.comparing(Libro::getTitulo, String.CASE_INSENSITIVE_ORDER));
+
+        // Mostramos cada libro
+        for (Libro libro : listaLibros) {
+            System.out.println(libro);
+        }
     }
+
+    // ------------------ MÉTODOS DE PRÉSTAMOS ------------------
 
     // Crear un nuevo préstamo
     private void nuevoPrestamo() {
-        Libro l = controlador.buscar(Consola.nuevoLibro(true));   // Buscamos libro por ISBN
-        Usuario u = controlador.buscar(Consola.nuevoUsuario(true)); // Buscamos usuario por ID
-        if (l != null && u != null) {
-            controlador.prestar(l, u, Consola.leerFecha()); // Prestamos libro
+        Libro libro = controlador.buscar(Consola.nuevoLibro(true)); // Buscamos libro por ISBN
+        Usuario usuario = controlador.buscar(Consola.nuevoUsuario(true)); // Buscamos usuario por ID
+        if (libro != null && usuario != null) {
+            controlador.prestar(libro, usuario, Consola.leerFecha()); // Prestamos libro
             System.out.println("Préstamo realizado.");
-        } else System.out.println("Libro o Usuario no encontrado.");
+        } else {
+            System.out.println("Libro o Usuario no encontrado.");
+        }
     }
 
     // Devolver un préstamo
     private void devolverPrestamo() {
-        Libro l = controlador.buscar(Consola.nuevoLibro(true));
-        Usuario u = controlador.buscar(Consola.nuevoUsuario(true));
-        if (l != null && u != null) {
-            // Buscar préstamo activo antes de devolver
+        Libro libro = controlador.buscar(Consola.nuevoLibro(true));
+        Usuario usuario = controlador.buscar(Consola.nuevoUsuario(true));
+        if (libro != null && usuario != null) {
+
+            // Buscamos el préstamo activo antes de devolver
             Prestamo prestamoActivo = null;
-            for (Prestamo p : controlador.listadoPrestamos(u)) {
-                if (p.getLibro().equals(l) && !p.isDevuelto()) {
+            for (Prestamo p : controlador.listadoPrestamos(usuario)) {
+                if (p.getLibro().equals(libro) && !p.isDevuelto()) {
                     prestamoActivo = p;
                     break;
                 }
             }
 
-            boolean ok = controlador.devolver(l, u, Consola.leerFecha());
-            if (ok) {
+            boolean exito = controlador.devolver(libro, usuario, Consola.leerFecha());
+            if (exito) {
                 System.out.println("Devolución procesada.");
                 if (prestamoActivo != null && prestamoActivo.estaVencido()) {
                     System.out.println("El préstamo estaba vencido.");
@@ -153,21 +200,65 @@ public class Vista {
         }
     }
 
-
-    // Mostrar todos los préstamos
+    // Mostrar todos los préstamos ordenados por fecha descendente y nombre de usuario
     private void mostrarPrestamos() {
-        Prestamo[] lista = controlador.listadoPrestamos();
-        if (lista.length == 0) System.out.println("No hay préstamos.");
-        else for (Prestamo p : lista) System.out.println(p);
+        ArrayList<Prestamo> listaPrestamos = new ArrayList<>();
+        for (Prestamo p : controlador.listadoPrestamos()) {
+            listaPrestamos.add(p);
+        }
+
+        if (listaPrestamos.isEmpty()) {
+            System.out.println("No hay préstamos.");
+            return;
+        }
+
+        // Ordenamos: primero por fecha de inicio (descendente), luego por nombre de usuario (A-Z)
+        listaPrestamos.sort((prestamo1, prestamo2) -> {
+            // Primero comparamos fechas (más recientes primero)
+            int comparacionFechas = prestamo2.getfInicio().compareTo(prestamo1.getfInicio());
+            if (comparacionFechas == 0) { // Si la fecha es la misma
+                // Ordenamos alfabéticamente por el nombre del usuario
+                comparacionFechas = prestamo1.getUsuario()
+                        .getNombre()
+                        .compareToIgnoreCase(prestamo2.getUsuario().getNombre());
+            }
+            return comparacionFechas;
+        });
+
+        // Mostramos cada préstamo
+        for (Prestamo prestamo : listaPrestamos) System.out.println(prestamo);
     }
 
-    // Mostrar los préstamos de un usuario específico
+    // Mostrar préstamos de un usuario específico ordenados
     private void mostrarPrestamosUsuario() {
-        Usuario u = controlador.buscar(Consola.nuevoUsuario(true));
-        if (u != null) {
-            Prestamo[] lista = controlador.listadoPrestamos(u);
-            if (lista.length == 0) System.out.println("Este usuario no tiene préstamos.");
-            else for (Prestamo p : lista) System.out.println(p);
-        } else System.out.println("Usuario no encontrado.");
+        Usuario usuario = controlador.buscar(Consola.nuevoUsuario(true));
+        if (usuario == null) {
+            System.out.println("Usuario no encontrado.");
+            return;
+        }
+
+        ArrayList<Prestamo> prestamosUsuario = new ArrayList<>();
+        for (Prestamo p : controlador.listadoPrestamos(usuario)) {
+            prestamosUsuario.add(p);
+        }
+
+        if (prestamosUsuario.isEmpty()) {
+            System.out.println("Este usuario no tiene préstamos.");
+            return;
+        }
+
+        // Ordenamos igual que todos los préstamos
+        prestamosUsuario.sort((prestamo1, prestamo2) -> {
+            int comparacionFechas = prestamo2.getfInicio().compareTo(prestamo1.getfInicio());
+            if (comparacionFechas == 0) {
+                comparacionFechas = prestamo1.getUsuario()
+                        .getNombre()
+                        .compareToIgnoreCase(prestamo2.getUsuario().getNombre());
+            }
+            return comparacionFechas;
+        });
+
+        // Mostramos cada préstamo
+        for (Prestamo prestamo : prestamosUsuario) System.out.println(prestamo);
     }
 }

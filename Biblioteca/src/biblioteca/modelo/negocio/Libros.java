@@ -1,53 +1,54 @@
 package biblioteca.modelo.negocio;
 
 import biblioteca.modelo.dominio.Libro;
+import java.util.ArrayList;
 
 public class Libros {
-    private Libro[] libros;
+    // Lista dinámica de libros
+    private ArrayList<Libro> libros;
 
-    public Libros(int capacidad) {
-        this.libros = new Libro[capacidad];
+    // Constructor: inicializamos la lista
+    public Libros() {
+        this.libros = new ArrayList<>();
     }
 
+    // Metodo para añadir un libro
     public void alta(Libro libro) {
-        for (int i = 0; i < libros.length; i++) {
-            if (libros[i] == null) {
-                libros[i] = libro;
-                return;
-            }
+        // Comprobamos que no introduzcan un null
+        if (libro == null) {
+            System.out.println("No puede registrar libros vacíos.");
+            return;
         }
-        System.out.println("No hay hueco para más libros.");
+
+        // Comprobamos si el libro ya existe
+        if (buscar(libro) != null) {
+            System.out.println("El libro ya está registrado.");
+            return;
+        }
+
+        // Ya no hay límite de capacidad, añadimos directamente
+        libros.add(libro);
     }
 
+    // Metodo para eliminar un libro
     public boolean bajaLibro(Libro libro) {
-        for (int i = 0; i < libros.length; i++) {
-            if (libros[i] != null && libros[i].equals(libro)) {
-                // Desplazamos a la izquierda para evitar huecos nulos intermedios
-                for (int j = i; j < libros.length - 1; j++) {
-                    libros[j] = libros[j + 1];
-                }
-                libros[libros.length - 1] = null;
-                return true;
-            }
-        }
-        return false;
+        return libros.remove(libro);
     }
 
+    // Metodo para buscar un libro
     public Libro buscar(Libro libro) {
+        if (libro == null) {
+            return null;
+        }
+
         for (Libro l : libros) {
-            if (l != null && l.equals(libro)) return l;
+            if (l.equals(libro)) return l;
         }
         return null;
     }
 
+    // Metodo para obtener todos los libros en forma de array
     public Libro[] todos() {
-        int count = 0;
-        for (Libro l : libros) if (l != null) count++;
-        Libro[] res = new Libro[count];
-        int index = 0;
-        for (Libro l : libros) {
-            if (l != null) res[index++] = l;
-        }
-        return res;
+        return libros.toArray(new Libro[0]);
     }
 }
