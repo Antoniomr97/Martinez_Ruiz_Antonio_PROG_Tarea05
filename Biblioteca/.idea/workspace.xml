@@ -5,13 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c9233fc-ccbe-43ee-b28f-c101fae79fb5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/biblioteca/controlador/Controlador.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/biblioteca/modelo/Modelo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/biblioteca/vista/Opcion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/biblioteca/vista/Vista.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/biblioteca/AppBiblioteca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/AppBiblioteca.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/controlador/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/controlador/Controlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/Modelo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/Modelo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/dominio/Autor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/dominio/Autor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/dominio/Libro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/dominio/Libro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/dominio/Prestamo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/dominio/Prestamo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Libros.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Libros.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Prestamos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Prestamos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/modelo/negocio/Usuarios.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/biblioteca/vista/Consola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/vista/Consola.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/vista/Opcion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/vista/Opcion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/biblioteca/vista/Vista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/biblioteca/vista/Vista.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,26 +35,26 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="396miBGtFBe5ZhPnhSllQfVIWWb" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.AppBiblioteca.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "C:/Users/Vermillion/Desktop/Martínez_Ruiz_Antonio_PROG_Tarea05/Biblioteca/src/Main.java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.AppBiblioteca.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Vermillion/Desktop/Martínez_Ruiz_Antonio_PROG_Tarea05/Biblioteca/src/Main.java&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="AppBiblioteca" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="biblioteca.AppBiblioteca" />
@@ -85,5 +91,16 @@
       <updated>1770025018970</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

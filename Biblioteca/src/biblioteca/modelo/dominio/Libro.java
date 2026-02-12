@@ -68,8 +68,10 @@ public class Libro {
     public String autoresComoCadena() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < numAutores; i++) {
-            sb.append(autores[i].toString()); // Añadimos el autor
-            if (i < numAutores - 1) sb.append(", "); // Añadimos coma entre autores
+            Autor a = autores[i];
+            sb.append(a.toString());          // mantiene la info completa
+            sb.append(" [").append(a.iniciales()).append("]"); // añadimos iniciales
+            if (i < numAutores - 1) sb.append(", ");
         }
         return sb.toString();
     }
